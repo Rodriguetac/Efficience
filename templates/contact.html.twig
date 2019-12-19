@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BDE CESI LILLE{% endblock %}
+{% block stylesheets %}
+<link href="style.css" rel="stylesheet" >
+{% endblock %}
+
+{% block body %}
+<!--Titre et image-->
+<h1>Bienvenue sur le site du BDE CESI</h1>
+<div class="center">
+    <img class="img" src="img/lan.jpg">
+    {{ form_start(form)}}
+    {{ form_label(form.lastname)}}
+    {{ form_widget(form.lastname)}}
+
+    {{ form_label(form.firstname)}}
+    {{ form_widget(form.firstname)}}
+
+    {{ form_label(form.departement)}}
+    {{ form_widget(form.departement)}}
+
+    {{ form_label(form.mail)}}
+    {{ form_widget(form.mail)}}
+
+    {{ form_label(form.message)}}
+    {{ form_widget(form.message)}}
+
+    {{ form_label(form.submit)}}
+    {{ form_widget(form.submit)}}
+</div>
+{% endblock %}

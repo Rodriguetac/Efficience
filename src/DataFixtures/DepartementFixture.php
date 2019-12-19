@@ -15,6 +15,11 @@ class DepartementFixture extends Fixture
         $departement1->setMailResponsable('rodriguetac@gmail.com');
         $manager->persist($departement1);
 
+        $departement2 = new Departement();
+        $departement2->setNom('rh');
+        $departement2->setMailResponsable('rodriguetac59@gmail.com');
+        $manager->persist($departement2);
+
         $manager->flush();
     }
 }

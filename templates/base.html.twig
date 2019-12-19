@@ -2,11 +2,97 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+        <link rel="stylesheet" href="footer.css">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% block script %}
+        <!--possibilité d'ajouter des scripts à cet endroit depuis les autres pages html-->
+        {% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+
+        {% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+      
+      {% block body %}{% endblock %}
+
+      {% block footer %}
+        <!-- Footer -->
+        <footer id="footer" class="page-footer font-small mdb-color pt-4">
+          <!-- Footer Links -->
+          <div class="container text-center text-md-left">
+            <!-- Footer links -->
+            <div class="row text-center text-md-left mt-3 pb-3">
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">CESI École d'Ingénieurs</h6>
+                  <p class="text-center text-md-left"><a href="https://www.cesi.fr/?gclid=EAIaIQobChMIgprLmpHa5QIViKztCh0rAAi3EAAYASAAEgIlzPD_BwE">Découvrez nos Cycles prépas Ingénieurs et Mastère Spécialisé®.
+                  </a></p>
+              </div>
+              <!-- Grid column -->
+              <hr class="w-100 clearfix d-md-none">
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Liens utiles</h6>
+                <p class="text-center text-md-left"><a href="#!"> Mon compte</a></p>
+                <p class="text-center text-md-left"><a href="#!"> Postuler au BDE</a></p>
+              </div>
+
+              <!-- Grid column -->
+              <hr class="w-100 clearfix d-md-none">
+
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                  <p class="text-center text-md-left"> 8 Boulevard Louis XIV Lille, 59000</p>
+                  <p class="text-center text-md-left"> cesi@viacesi.fr</p>
+                  <p class="text-center text-md-left"> + 03 21 51 67 18</p>
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!-- Footer links -->
+
+            <hr>
+
+            <!-- Grid row -->
+            <div class="row d-flex align-items-center">
+
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+
+                <!--Copyright-->
+                <p class="text-center text-md-left">© CESI 2019
+                </p>
+              </div>
+              <!-- Grid column -->
+              <div id="social-button" class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+
+                  <!--Button-->
+                  <p class="text-center text-md-left">
+                    <a href=" https://www.instagram.com/campus_cesi/"><img id="instagram-button" src="img/instagram-logo.svg"></a>
+                    <a href="https://twitter.com/GroupeCESI"><img id="twitter-button" src="img/twitter.svg"></a>
+                    <a href="https://www.youtube.com/user/groupecesi1/"><img id="youtube-button" src="img/youtube-logo.svg"></a>
+                    <a href="https://www.linkedin.com/company/groupe-cesi/"><img id="linkedin-button" src="img/linkedin.svg"></a>
+                    <a href="https://www.viadeo.com/fr/company/cesi"><img id="viadeo-button" src="img/viadeo-logo.svg"></a>
+                  </p>
+                </div>
+              <div id="social-button" class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                  <!--Button-->
+                  <p class="text-center text-md-left">
+                  </p>
+                </div>
+            </div>
+            <!-- Grid row -->
+          </div>
+          <!-- Footer Links -->
+        </footer>
+        <!-- Footer -->
+      {% endblock footer %}
+      {% block javascripts %}{% endblock %}
     </body>
 </html>
