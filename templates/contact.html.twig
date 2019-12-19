@@ -1,32 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BDE CESI LILLE{% endblock %}
+{% block title %}Contact{% endblock %}
 {% block stylesheets %}
-<link href="style.css" rel="stylesheet" >
+<link href="contact.css?145" rel="stylesheet" >
+{% endblock %}
+
+{% block header %}
+<h1>Contact</h1>
 {% endblock %}
 
 {% block body %}
-<!--Titre et image-->
-<h1>Bienvenue sur le site du BDE CESI</h1>
-<div class="center">
-    <img class="img" src="img/lan.jpg">
-    {{ form_start(form)}}
-    {{ form_label(form.lastname)}}
-    {{ form_widget(form.lastname)}}
 
-    {{ form_label(form.firstname)}}
-    {{ form_widget(form.firstname)}}
-
-    {{ form_label(form.departement)}}
-    {{ form_widget(form.departement)}}
-
-    {{ form_label(form.mail)}}
-    {{ form_widget(form.mail)}}
-
-    {{ form_label(form.message)}}
-    {{ form_widget(form.message)}}
-
-    {{ form_label(form.submit)}}
-    {{ form_widget(form.submit)}}
+{% if data is defined %}
+<div id="send_message">
+    <p>Votre mail a bien été envoyé</p>
+    <p>Le contenu de votre message est : {{ data.message }}
 </div>
+{% else %}
+
+<div class="formulaire_contact_mail">
+    {{ form_start(form)}}
+    <div>
+        {{ form_label(form.lastname)}} </br>
+        {{ form_widget(form.lastname)}}
+    </div>
+    <div>
+        {{ form_label(form.firstname)}} </br>
+        {{ form_widget(form.firstname)}}
+    </div>
+    <div>
+        {{ form_label(form.departement)}} </br>
+        {{ form_widget(form.departement)}}
+    </div>
+    <div>
+        {{ form_label(form.mail)}} </br>
+        {{ form_widget(form.mail)}}
+    </div>
+    <div>
+        {{ form_label(form.message)}} </br>
+        {{ form_widget(form.message)}}
+    </div>
+    <div>
+        {{ form_label(form.submit)}}
+        {{ form_widget(form.submit)}}
+    </div>
+</div>
+{% endif %}
 {% endblock %}

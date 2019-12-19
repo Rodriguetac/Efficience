@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
         <link rel="stylesheet" href="footer.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css?1">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         {% block script %}
@@ -15,6 +15,8 @@
 
         {% endblock %}
     </head>
+
+    <header>{% block header %}{% endblock %}</header>
 
     <body>
       
@@ -70,22 +72,6 @@
                 </p>
               </div>
               <!-- Grid column -->
-              <div id="social-button" class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-
-                  <!--Button-->
-                  <p class="text-center text-md-left">
-                    <a href=" https://www.instagram.com/campus_cesi/"><img id="instagram-button" src="img/instagram-logo.svg"></a>
-                    <a href="https://twitter.com/GroupeCESI"><img id="twitter-button" src="img/twitter.svg"></a>
-                    <a href="https://www.youtube.com/user/groupecesi1/"><img id="youtube-button" src="img/youtube-logo.svg"></a>
-                    <a href="https://www.linkedin.com/company/groupe-cesi/"><img id="linkedin-button" src="img/linkedin.svg"></a>
-                    <a href="https://www.viadeo.com/fr/company/cesi"><img id="viadeo-button" src="img/viadeo-logo.svg"></a>
-                  </p>
-                </div>
-              <div id="social-button" class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                  <!--Button-->
-                  <p class="text-center text-md-left">
-                  </p>
-                </div>
             </div>
             <!-- Grid row -->
           </div>

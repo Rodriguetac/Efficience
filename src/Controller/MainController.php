@@ -26,7 +26,11 @@ class MainController extends AbstractController
             ]);
         }else if($request->isMethod('POST'))
         {
-            
+            $form->handleRequest($request);
+            $data = $form->getData();
+            return $this->render('contact.html.twig', [
+                'data' => $data
+            ]);
         }
     }
 }

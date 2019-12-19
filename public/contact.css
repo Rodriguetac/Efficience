@@ -1,0 +1,17 @@
+.formulaire_contact_mail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.formulaire_contact_mail  div {
+   text-align: center; 
+}
+
+.textMessage {
+    width: 400px;
+    min-height: 150px;
+}
+
+#send_message {
+    text-align: center;
+}
