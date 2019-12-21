@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Form\ContactType;
 use App\Entity\Departement;
+use App\Entity\Mail;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 
 class MainController extends AbstractController
 {
@@ -43,7 +45,20 @@ class MainController extends AbstractController
                 ->to($dataForm['departement']->getMailResponsable())
                 ->subject('Mail envoyé par ' . $dataForm['firstname'])
                 ->text('Mail envoyé par ' . $dataForm['mail'] . ' à propos de : ' . $dataForm['message']);
+                
                 $sentEmail = $mailer->send($email);
+                
+                $manager = $this->getDoctrine()->getManager();
+
+                $mail = (new Mail())
+                ->setNom($dataForm['lastname'])
+                ->setPrenom($dataForm['firstname'])
+                ->setMail($dataForm['mail'])
+                ->setMessage($dataForm['message'])
+                ->setDepartement($dataForm['departement']);
+
+                $manager->persist($mail);
+                $manager->flush();
 
                 return $this->render('contact.html.twig', [
                     'form' => $form,

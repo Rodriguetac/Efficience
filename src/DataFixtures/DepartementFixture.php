@@ -15,17 +15,17 @@ class DepartementFixture extends Fixture
     {
         $departement1 = new Departement();
         $departement1->setNom('Direction');
-        $departement1->setMailResponsable('rodriguetac@gmail.com');
+        $departement1->setMailResponsable('responsabledirection@yopmail.com');
         $manager->persist($departement1);
 
         $departement2 = new Departement();
         $departement2->setNom('rh');
-        $departement2->setMailResponsable('rodriguetac59@gmail.com');
+        $departement2->setMailResponsable('responsablerh@yopmail.com');
         $manager->persist($departement2);
 
         $departement3 = new Departement();
         $departement3->setNom('com');
-        $departement3->setMailResponsable('leroux.veron@gmail.com');
+        $departement3->setMailResponsable('responsablecom@yopmail.com');
         $manager->persist($departement3);
 
         $manager->flush();
