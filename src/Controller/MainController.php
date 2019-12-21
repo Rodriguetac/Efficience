@@ -17,29 +17,38 @@ class MainController extends AbstractController
      */
     public function contact(Request $request, MailerInterface $mailer)
     {
+        //Création du formulaire
         $form = $this->createForm(ContactType::class);
 
+        //Affichage de la page contact.html.twig avec le formulaire si la méthode de la requête est GET
         if($request->isMethod('GET'))
         {
             return $this->render('contact.html.twig', [
                 'form' => $form->createView()
             ]);
-        }else if($request->isMethod('POST'))
+
+        }
+        //Si la méthode est POST je récupère les données du formulaire s'il a été soumis je crée un mail qui sera envoyé au responsable du département
+        else if($request->isMethod('POST'))
         {
             $form->handleRequest($request);
             
             if($form->isSubmitted()){
 
                 $dataForm = $form->getData();
-
+                
+                //Création de l'email
                 $email = (new Email())
                 ->from($dataForm['mail'])
                 ->to($dataForm['departement']->getMailResponsable())
-                ->subject('Mail addressé au responsable du departement' . $dataForm['departement']->getNom())
-                ->text($dataForm['message']);
+                ->subject('Mail envoyé par ' . $dataForm['firstname'])
+                ->text('Mail envoye par ' . $dataForm['mail'] . ' à propos de : ' . $dataForm['message']);
                 $sentEmail = $mailer->send($email);
 
-                return $this->redirectRoute('/contact');
+                return $this->render('contact.html.twig', [
+                    'form' => $form,
+                    'data' => $dataForm
+                ]);
 
             }
         }

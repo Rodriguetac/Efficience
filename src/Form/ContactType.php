@@ -10,7 +10,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-
+/**
+ * Formulaire de Contact
+ */
 class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
