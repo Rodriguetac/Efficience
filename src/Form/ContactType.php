@@ -17,7 +17,7 @@ class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
+        //Création des inputs de la liste déroulante et du bouton de Validation
         $builder
 
             ->add('lastname', TextType::class, array('label'=> 'Nom', 'required' => true, 'attr' => array('class'=>'form-group', 'placeholder'=>'Entrez votre Nom')))

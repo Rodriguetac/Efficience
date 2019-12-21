@@ -37,6 +37,7 @@ class MainController extends AbstractController
             
             if($form->isSubmitted()){
 
+                //Obtention des données du formulaire
                 $dataForm = $form->getData();
 
                 //Création de l'email
@@ -46,10 +47,13 @@ class MainController extends AbstractController
                 ->subject('Mail envoyé par ' . $dataForm['firstname'])
                 ->text('Mail envoyé par ' . $dataForm['mail'] . ' à propos de : ' . $dataForm['message']);
                 
+                //Envoi de l'email
                 $sentEmail = $mailer->send($email);
                 
+
                 $manager = $this->getDoctrine()->getManager();
 
+                //Creation d'un mail qu'on enverra dns la bdd
                 $mail = (new Mail())
                 ->setNom($dataForm['lastname'])
                 ->setPrenom($dataForm['firstname'])
@@ -57,9 +61,11 @@ class MainController extends AbstractController
                 ->setMessage($dataForm['message'])
                 ->setDepartement($dataForm['departement']);
 
+                //Envoi du mail dans la bdd 
                 $manager->persist($mail);
                 $manager->flush();
 
+                //Redirection vers la page contact avec un message de confirmation de l'envoie du mail
                 return $this->render('contact.html.twig', [
                     'form' => $form,
                     'data' => $dataForm
