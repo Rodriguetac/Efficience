@@ -53,7 +53,7 @@ class MainController extends AbstractController
 
                 $manager = $this->getDoctrine()->getManager();
 
-                //Creation d'un mail qu'on enverra dns la bdd
+                //Creation d'un mail qu'on enverra dans la bdd
                 $mail = (new Mail())
                 ->setNom($dataForm['lastname'])
                 ->setPrenom($dataForm['firstname'])
@@ -65,7 +65,7 @@ class MainController extends AbstractController
                 $manager->persist($mail);
                 $manager->flush();
 
-                //Redirection vers la page contact avec un message de confirmation de l'envoie du mail
+                //Redirection vers la page contact avec un message de confirmation de l'envoi du mail
                 return $this->render('contact.html.twig', [
                     'form' => $form,
                     'data' => $dataForm
