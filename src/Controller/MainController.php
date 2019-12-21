@@ -36,13 +36,13 @@ class MainController extends AbstractController
             if($form->isSubmitted()){
 
                 $dataForm = $form->getData();
-                
+
                 //Création de l'email
                 $email = (new Email())
                 ->from($dataForm['mail'])
                 ->to($dataForm['departement']->getMailResponsable())
                 ->subject('Mail envoyé par ' . $dataForm['firstname'])
-                ->text('Mail envoye par ' . $dataForm['mail'] . ' à propos de : ' . $dataForm['message']);
+                ->text('Mail envoyé par ' . $dataForm['mail'] . ' à propos de : ' . $dataForm['message']);
                 $sentEmail = $mailer->send($email);
 
                 return $this->render('contact.html.twig', [
