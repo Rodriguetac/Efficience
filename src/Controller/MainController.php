@@ -2,21 +2,21 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use App\Form\ContactType;
 use App\Entity\Departement;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/contact")
      */
-    public function contact(Request $request)
+    public function contact(Request $request, MailerInterface $mailer)
     {
-        $em = $this->getDoctrine()->getManager()->getRepository('App:Departement');
-        $donne = $em->findAll();
         $form = $this->createForm(ContactType::class);
 
         if($request->isMethod('GET'))
@@ -27,10 +27,21 @@ class MainController extends AbstractController
         }else if($request->isMethod('POST'))
         {
             $form->handleRequest($request);
-            $data = $form->getData();
-            return $this->render('contact.html.twig', [
-                'data' => $data
-            ]);
+            
+            if($form->isSubmitted()){
+
+                $dataForm = $form->getData();
+
+                $email = (new Email())
+                ->from($dataForm['mail'])
+                ->to($dataForm['departement']->getMailResponsable())
+                ->subject('Mail addressé au responsable du departement' . $dataForm['departement']->getNom())
+                ->text($dataForm['message']);
+                $sentEmail = $mailer->send($email);
+
+                return $this->redirectRoute('/contact');
+
+            }
         }
     }
 }
