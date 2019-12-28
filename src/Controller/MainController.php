@@ -23,15 +23,12 @@ class MainController extends AbstractController
         $form = $this->createForm(ContactType::class);
 
         //Affichage de la page contact.html.twig avec le formulaire si la méthode de la requête est GET
-        if($request->isMethod('GET'))
-        {
-            return $this->render('contact.html.twig', [
-                'form' => $form->createView()
-            ]);
+        return $this->render('contact.html.twig', [
+            'form' => $form->createView()
+        ]);
 
-        }
         //Si la méthode est POST je récupère les données du formulaire s'il a été soumis je crée un mail qui sera envoyé au responsable du département
-        else if($request->isMethod('POST'))
+        if($request->isMethod('POST'))
         {
             $form->handleRequest($request);
             

@@ -19,22 +19,22 @@ class Mail
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Prenom;
+    private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Mail;
+    private $mail;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Message;
+    private $message;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Departement")
@@ -49,48 +49,48 @@ class Mail
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): self
+    public function setPrenom(string $prenom): self
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
     public function getMail(): ?string
     {
-        return $this->Mail;
+        return $this->mail;
     }
 
-    public function setMail(string $Mail): self
+    public function setMail(string $mail): self
     {
-        $this->Mail = $Mail;
+        $this->mail = $mail;
 
         return $this;
     }
 
     public function getMessage(): ?string
     {
-        return $this->Message;
+        return $this->message;
     }
 
-    public function setMessage(string $Message): self
+    public function setMessage(string $message): self
     {
-        $this->Message = $Message;
+        $this->message = $message;
 
         return $this;
     }

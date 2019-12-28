@@ -19,12 +19,12 @@ class Departement
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Mail_Responsable;
+    private $mailResponsable;
 
     public function getId(): ?int
     {
@@ -33,24 +33,24 @@ class Departement
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getMailResponsable(): ?string
     {
-        return $this->Mail_Responsable;
+        return $this->mailResponsable;
     }
 
-    public function setMailResponsable(string $Mail_Responsable): self
+    public function setMailResponsable(string $mailResponsable): self
     {
-        $this->Mail_Responsable = $Mail_Responsable;
+        $this->mailResponsable = $mailResponsable;
 
         return $this;
     }
