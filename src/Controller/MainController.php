@@ -22,11 +22,6 @@ class MainController extends AbstractController
         //Création du formulaire
         $form = $this->createForm(ContactType::class);
 
-        //Affichage de la page contact.html.twig avec le formulaire si la méthode de la requête est GET
-        return $this->render('contact.html.twig', [
-            'form' => $form->createView()
-        ]);
-
         //Si la méthode est POST je récupère les données du formulaire s'il a été soumis je crée un mail qui sera envoyé au responsable du département
         if($request->isMethod('POST'))
         {
@@ -37,16 +32,14 @@ class MainController extends AbstractController
                 //Obtention des données du formulaire
                 $dataForm = $form->getData();
 
-                //Création de l'email
-                $email = (new Email())
-                ->from($dataForm['mail'])
-                ->to($dataForm['departement']->getMailResponsable())
-                ->subject('Mail envoyé par ' . $dataForm['firstname'])
-                ->text('Mail envoyé par ' . $dataForm['mail'] . ' à propos de : ' . $dataForm['message']);
-                
-                //Envoi de l'email
-                $sentEmail = $mailer->send($email);
-                
+                //Appel de la fonction sendMail
+                $this->sendMail(
+                    $mailer,
+                    $dataForm['mail'], 
+                    $dataForm['departement']->getMailResponsable(),
+                    'Mail envoyé par ' . $dataForm['firstname'],
+                    'Mail envoyé par ' . $dataForm['mail'] . 'à propos de : ' . $dataForm['message']
+                );
 
                 $manager = $this->getDoctrine()->getManager();
 
@@ -61,14 +54,33 @@ class MainController extends AbstractController
                 //Envoi du mail dans la bdd 
                 $manager->persist($mail);
                 $manager->flush();
-
-                //Redirection vers la page contact avec un message de confirmation de l'envoi du mail
-                return $this->render('contact.html.twig', [
-                    'form' => $form,
-                    'data' => $dataForm
-                ]);
-
             }
+            //Affichage de la page contact.html.twig avec le formulaire
+            return $this->render('contact.html.twig', [
+                'form' => $form->createView(),
+                'data' => $dataForm
+            ]);
+
         }
+        else
+        {
+            //Affichage de la page contact.html.twig avec le formulaire
+            return $this->render('contact.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
+        
+    }
+
+    //Fonction d'envoie de Mail
+    public function sendMail(MailerInterface $mailer, $from, $to, $subject, $text)
+    {
+        $mail = (new Email())
+        ->from($from)
+        ->to($to)
+        ->subject($subject)
+        ->text($text);
+
+        $sentEmail = $mailer->send($mail);
     }
 }

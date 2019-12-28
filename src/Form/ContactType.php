@@ -20,12 +20,69 @@ class ContactType extends AbstractType
         //Création des inputs de la liste déroulante et du bouton de Validation
         $builder
 
-            ->add('lastname', TextType::class, array('label'=> 'Nom', 'required' => true, 'attr' => array('class'=>'form-group', 'placeholder'=>'Entrez votre Nom')))
-            ->add('firstname', TextType::class, array('label'=> 'Prénom', 'required' => true, 'attr' => array('class'=>'form-group ', 'placeholder'=>'Entrez votre Prénom')))
-            ->add('departement', EntityType::class, array('class' => Departement::class, 'choice_label'=> 'Nom' ))
-            ->add('mail', EmailType::class, array('label'=> 'Mail', 'required' => true, 'attr' => array('class'=>'form-group ','placeholder'=>'Entrez votre email')))
-            ->add('message', TextareaType::class, array('label'=> 'Message', 'required' => true, 'attr' => array('class'=>'textMessage','placeholder'=>'Entrez le contenu de votre Email')))
-            ->add('submit', SubmitType::class, array('label' => 'Envoi du mail', 'attr' => array('class' => 'btn btn-primary')))
-        ;
+            ->add('lastname', TextType::class, 
+                array(
+                    'label'=> 'Nom', 
+                    'required' => true, 
+                    'attr' => 
+                        array(
+                            'class'=>'form-group', 
+                            'placeholder'=>'Entrez votre Nom'
+                        ) 
+                )
+            )
+
+            ->add('firstname', TextType::class, 
+                array(
+                    'label'=> 'Prénom', 
+                    'required' => true, 
+                    'attr' => 
+                        array(
+                            'class'=>'form-group ', 
+                            'placeholder'=>'Entrez votre Prénom'
+                        )
+                )
+            )
+
+            ->add('departement', EntityType::class, 
+                array(
+                    'class' => Departement::class, 
+                    'choice_label'=> 'Nom' 
+                )
+            )
+
+            ->add('mail', EmailType::class, 
+                array(
+                    'label'=> 'Mail', 
+                    'required' => true, 
+                    'attr' => 
+                        array(
+                            'class'=>'form-group ', 
+                            'placeholder'=>'Entrez votre email'
+                        )
+                )
+            )
+
+            ->add('message', TextareaType::class, 
+                array(
+                    'label'=> 'Message', 
+                    'required' => true, 
+                    'attr' => 
+                        array(
+                            'class'=>'textMessage',
+                            'placeholder'=>'Entrez le contenu de votre Email'
+                        )
+                )
+            )
+
+            ->add('submit', SubmitType::class, 
+                array(
+                    'label' => 'Envoi du mail', 
+                    'attr' => 
+                        array(
+                            'class' => 'btn btn-primary'
+                        )
+                )
+            );
     }
 }
