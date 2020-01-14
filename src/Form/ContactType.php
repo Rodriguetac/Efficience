@@ -20,7 +20,7 @@ class ContactType extends AbstractType
         //Création des inputs de la liste déroulante et du bouton de Validation
         $builder
 
-            ->add('lastname', TextType::class, 
+            ->add('nom', TextType::class, 
                 array(
                     'label'=> 'Nom', 
                     'required' => true, 
@@ -32,7 +32,7 @@ class ContactType extends AbstractType
                 )
             )
 
-            ->add('firstname', TextType::class, 
+            ->add('prenom', TextType::class, 
                 array(
                     'label'=> 'Prénom', 
                     'required' => true, 

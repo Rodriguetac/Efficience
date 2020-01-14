@@ -19,8 +19,9 @@ class MainController extends AbstractController
      */
     public function contact(Request $request, MailerInterface $mailer)
     {
+        $mail = new Mail();
         //Création du formulaire
-        $form = $this->createForm(ContactType::class);
+        $form = $this->createForm(ContactType::class, $mail);
 
         //Si la méthode est POST je récupère les données du formulaire s'il a été soumis je crée un mail qui sera envoyé au responsable du département
         if($request->isMethod('POST'))
@@ -35,21 +36,13 @@ class MainController extends AbstractController
                 //Appel de la fonction sendMail
                 $this->sendMail(
                     $mailer,
-                    $dataForm['mail'], 
-                    $dataForm['departement']->getMailResponsable(),
-                    'Mail envoyé par ' . $dataForm['firstname'],
-                    'Mail envoyé par ' . $dataForm['mail'] . 'à propos de : ' . $dataForm['message']
+                    $dataForm->getMail(), 
+                    $dataForm->getDepartement()->getMailResponsable(),
+                    'Mail envoyé par ' . $dataForm->getPrenom(),
+                    'Mail envoyé par ' . $dataForm->getMail() . ' à propos de : ' . $dataForm->getMessage()
                 );
 
                 $manager = $this->getDoctrine()->getManager();
-
-                //Creation d'un mail qu'on enverra dans la bdd
-                $mail = (new Mail())
-                ->setNom($dataForm['lastname'])
-                ->setPrenom($dataForm['firstname'])
-                ->setMail($dataForm['mail'])
-                ->setMessage($dataForm['message'])
-                ->setDepartement($dataForm['departement']);
 
                 //Envoi du mail dans la bdd 
                 $manager->persist($mail);
