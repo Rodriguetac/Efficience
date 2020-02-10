@@ -21,7 +21,7 @@ class MainController extends AbstractController
     {
         $mail = new Mail();
         //Création du formulaire
-        $form = $this->createForm(ContactType::class, $mail);
+        $form = $this->createForm(ContactType::class);
 
         //Si la méthode est POST je récupère les données du formulaire s'il a été soumis je crée un mail qui sera envoyé au responsable du département
         if($request->isMethod('POST'))
@@ -33,20 +33,28 @@ class MainController extends AbstractController
                 //Obtention des données du formulaire
                 $dataForm = $form->getData();
 
-                //Appel de la fonction sendMail
-                $this->sendMail(
-                    $mailer,
-                    $dataForm->getMail(), 
-                    $dataForm->getDepartement()->getMailResponsable(),
-                    'Mail envoyé par ' . $dataForm->getPrenom(),
-                    'Mail envoyé par ' . $dataForm->getMail() . ' à propos de : ' . $dataForm->getMessage()
+                /*$ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "localhost:8000/api/departement/" . $dataForm['departement']->getId());
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                $return = curl_exec($ch);
+                curl_close($ch);
+                
+                $json = ;
+                dd(json_decode($json));
+                $request = Request::create('localhost:8000/api/mail/ajout', 'POST', [], [], [], [], $jsonData);
+                $header = array(
+                    'Accept: application/json',
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($jsonData)   
                 );
-
-                $manager = $this->getDoctrine()->getManager();
-
-                //Envoi du mail dans la bdd 
-                $manager->persist($mail);
-                $manager->flush();
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'localhost:8000/api/mail/ajout');
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+                curl_setopt($ch, CURLOPT_HEADER, $header);
+                curl_setopt($ch,CURLOPT_POSTFIELDS, $jsonData);
+                $return = curl_exec($ch);
+                curl_close($ch);*/
             }
             //Affichage de la page contact.html.twig avec le formulaire
             return $this->render('contact.html.twig', [

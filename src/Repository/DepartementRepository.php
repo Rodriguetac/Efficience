@@ -19,6 +19,26 @@ class DepartementRepository extends ServiceEntityRepository
         parent::__construct($registry, Departement::class);
     }
 
+    public function apiFindAll() : array
+    {
+        $qb = $this->createQueryBuilder('a')
+        ->select('a.id', 'a.nom');
+
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+    
+    public function apiFindId($id) : array
+    {
+        $qb = $this->createQueryBuilder('a')
+        ->select('a.id', 'a.nom')
+        ->andWhere('a.id = :val')
+        ->setParameter('val', $id);
+
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
     // /**
     //  * @return Departement[] Returns an array of Departement objects
     //  */
