@@ -3,21 +3,17 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
-use App\Entity\Departement;
 use App\Entity\Mail;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/contact")
      */
-    public function contact(Request $request, MailerInterface $mailer)
+    public function contact(Request $request)
     {
         $mail = new Mail();
         //Création du formulaire
@@ -32,20 +28,13 @@ class MainController extends AbstractController
 
                 //Obtention des données du formulaire
                 $dataForm = $form->getData();
-
-                /*$ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, "localhost:8000/api/departement/" . $dataForm['departement']->getId());
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-                $return = curl_exec($ch);
-                curl_close($ch);
                 
-                $json = ;
-                dd(json_decode($json));
-                $request = Request::create('localhost:8000/api/mail/ajout', 'POST', [], [], [], [], $jsonData);
+                $dataForm['departement'] = $dataForm['departement']->getId();
+                
+                $jsonData = json_encode($dataForm);
+
                 $header = array(
-                    'Accept: application/json',
-                    'Content-Type: application/json',
+                    'content-type: application/json',
                     'Content-Length: ' . strlen($jsonData)   
                 );
                 $ch = curl_init();
@@ -53,8 +42,10 @@ class MainController extends AbstractController
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
                 curl_setopt($ch, CURLOPT_HEADER, $header);
                 curl_setopt($ch,CURLOPT_POSTFIELDS, $jsonData);
+
                 $return = curl_exec($ch);
-                curl_close($ch);*/
+                curl_close($ch);
+                
             }
             //Affichage de la page contact.html.twig avec le formulaire
             return $this->render('contact.html.twig', [
@@ -70,18 +61,5 @@ class MainController extends AbstractController
                 'form' => $form->createView()
             ]);
         }
-        
-    }
-
-    //Fonction d'envoie de Mail
-    public function sendMail(MailerInterface $mailer, $from, $to, $subject, $text)
-    {
-        $mail = (new Email())
-        ->from($from)
-        ->to($to)
-        ->subject($subject)
-        ->text($text);
-
-        $sentEmail = $mailer->send($mail);
     }
 }

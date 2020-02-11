@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 /**
  * @Route("/api", name="api_")
@@ -64,26 +66,47 @@ class APIController extends AbstractController
     /**
      * @Route("/mail/ajout", name="mail_ajout", methods={"POST"})
      */
-    public function addMail(Request $request)
+    public function addMail(Request $request, MailerInterface $mailer)
     {
-       /* if($request->isXmlHttpRequest())
-        {*/
-            $donnee = json_decode($request->getContent());
-            dd($request->getContent());
-            dd($donnee->departement);
-            $mail = (new Mail())
-            ->setNom($donnee->nom)
-            ->setPrenom($donnee->prenom)
-            ->setMail($donnee->mail)
-            ->setMessage($donnee->message)
-            ->setDepartement($donnee->departement); 
+        $manager = $this->getDoctrine()->getManager();
 
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($mail);
-            $manager->flush();
+        $donnee = json_decode($request->getContent());
 
-            return new Response('OK', 201); 
-        /*}
-        return new Response('Erreur', 404);*/
+        $departement = $this->getDoctrine()
+        ->getRepository(Departement::class)
+        ->find($donnee->departement);
+
+        $mail = (new Mail())
+        ->setNom($donnee->nom)
+        ->setPrenom($donnee->prenom)
+        ->setMail($donnee->mail)
+        ->setMessage($donnee->message)
+        ->setDepartement($departement); 
+
+        $manager->persist($mail);
+        $manager->flush();
+
+        $this->sendMail(
+            $mailer,
+            $donnee->mail, 
+            $departement->getMailResponsable(),
+            'Mail envoyé par ' . $donnee->prenom,
+            'Mail envoyé par ' . $donnee->mail . ' à propos de : ' . $donnee->message
+        );
+
+        $response = new Response('OK', 201);
+
+        return $response;
+    }
+
+    public function sendMail(MailerInterface $mailer, $from, $to, $subject, $text)
+    {
+        $mail = (new Email())
+        ->from($from)
+        ->to($to)
+        ->subject($subject)
+        ->text($text);
+
+        $sentEmail = $mailer->send($mail);
     }
 }
